@@ -29,7 +29,6 @@ document.getElementById("login_form").addEventListener("submit", async (event) =
                 password : password
             });
 
-            console.log(response.data);
             // alert("res : "+response.data);
             if(response.data.success){
                 console.log("Valid Credentials");
@@ -50,11 +49,13 @@ document.getElementById("login_form").addEventListener("submit", async (event) =
                 }
             }
             else{
+                alert("Authentication Failed : "+ response.data.message);
                 console.log(" Response success? False : Invalid Credentials");
             }
         }
         catch( err ){
             console.log("Login error : "+err);
+            alert("User Authentication failed, please try again");
         }
     }
     

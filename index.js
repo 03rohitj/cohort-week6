@@ -66,9 +66,33 @@ function auth(req, res, next){
     }
 }
 
-async function updateTodoFile(todos) {
+async function updateTodoFile(todos, username) {
     try {
-        await fsp.writeFile(TODO_DATA_FILE, JSON.stringify(todos, null, 4));
+        //Read the file
+        const todos_raw_data = fs.readFileSync(TODO_DATA_FILE, "utf-8");
+        var todos_json_data = todos_raw_data ? JSON.parse(todos_raw_data) : [];
+
+        if( !todos_json_data || todos_json_data.length == 0){
+            todos_json_data = [ { "user" : username, "todos" : todos}]; 
+        }
+        else{
+            var userFound = false;
+            todos_json_data.forEach(element => {
+                if(element.user == username){
+                    element.todos = todos;
+                    userFound = true;
+                }
+            });
+
+            if(!userFound){
+                todos_json_data.push({ "user" : username, "todos" : todos});
+            }
+        }
+
+        console.log("Updated todos json : ", todos_json_data);
+    
+        //Update the file with new data
+        await fsp.writeFile(TODO_DATA_FILE, JSON.stringify(todos_json_data, null, 4));
         console.log("Todo file updated successfully!");
         return true; 
     } catch (err) {
@@ -154,7 +178,7 @@ app.post("/signin", (req, res) => {
         console.log("Token : "+token);
         res.setHeader("token", token);
 
-        res.json({
+        res.status(200).send({
             username : username,
             message : "Logged in Successfully : "+username+", token : "+token,
             success : "true"
@@ -164,8 +188,10 @@ app.post("/signin", (req, res) => {
         console.log(foundUser);
     }
     else{
-        res.status(403).json({
-            message : "Invalid user credentials"
+        console.log("Server : Invalid credentials");
+        res.status(403).send({
+            message : "Invalid user credentials",
+            success : false
         })
         return;
     }
@@ -194,7 +220,24 @@ app.get("/me", auth, (req,res) => {
 app.get("/home", auth, (req, res) => {
     
     const rawData = fs.readFileSync(TODO_DATA_FILE, "utf-8");
-    const todos = rawData ? JSON.parse(rawData) : [];
+    const todos_all_data = rawData ? JSON.parse(rawData) : [];
+    console.log("todos all data : ", todos_all_data);
+
+    //Fetch logged in user's data
+    const username = req.user.username;
+    console.log("reading, Loggedin user: ", username);
+    
+    var todos = [];
+    if(todos_all_data.length > 0){
+        var userFound = false;
+        todos_all_data.forEach(element => {
+            if(element.user == username){
+                todos = element.todos;
+                userFound = true;
+            }
+        });
+    }
+
     console.log("Sending todos from server to client..");
     res.status(200).send({
         success : true,
@@ -207,13 +250,14 @@ app.get("/home", auth, (req, res) => {
 //Whenever a todo is being update
 app.post("/updateTodo", auth, async (req, res) => {
     const todos = req.body.todos;
+    const user = req.user;
     console.log("Endpoint : /updateTodo.....");
-    console.log("Fetched todos len : ", todos.length);
+    console.log("Logged in user : ", user.username);
     console.log("Fetched todos : ", todos);
 
     try
     {
-        const updateStatus = await updateTodoFile(todos);
+        const updateStatus = await updateTodoFile(todos, user.username);
         console.log("File update success? ", updateStatus);
 
         const resStatus = (updateStatus == true) ? 200 : 501;

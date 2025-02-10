@@ -1,17 +1,52 @@
 [
     {
-        "id": 2,
-        "title": "eat @ 8",
-        "status": "complete"
+        "user": "rjangid",
+        "todos": [
+            {
+                "id": 2,
+                "title": "Eat by 7",
+                "status": "complete"
+            },
+            {
+                "id": 3,
+                "title": "Gym at 4",
+                "status": "pending"
+            }
+        ]
     },
     {
-        "id": 3,
-        "title": "Finish meeting by 12",
-        "status": "complete"
+        "user": "admin",
+        "todos": [
+            {
+                "id": 1,
+                "title": "Meeting at 8",
+                "status": "complete"
+            },
+            {
+                "id": 3,
+                "title": "Tennis at 8",
+                "status": "pending"
+            },
+            {
+                "id": 4,
+                "title": "Dinner by 10",
+                "status": "complete"
+            }
+        ]
     },
     {
-        "id": 4,
-        "title": "Workout @ 6",
-        "status": "complete"
+        "user": "guest",
+        "todos": [
+            {
+                "id": 2,
+                "title": "Healthy breakfast (min 40grams protein)",
+                "status": "pending"
+            },
+            {
+                "id": 3,
+                "title": "Daily standups",
+                "status": "complete"
+            }
+        ]
     }
 ]
