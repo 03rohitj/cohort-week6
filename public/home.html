@@ -1,0 +1,118 @@
+
+
+<head>
+    <link rel="stylesheet" href="mystyle.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+
+<!-- <script>
+    const token = localStorage.getItem("token");
+    const username = localStorage.getItem("username");
+
+    if(!token || !username){
+        window.location.href = "/login.html";
+    }
+    else{
+        alert("Logged in with user : "+username);
+    }
+
+</script> -->
+<body>
+
+    <div id="main_wrapper">
+        <div id="main_heading"><h1>My To-do List</h1></div>
+
+        <div id="addNew_section">
+            <input type="text" id="txt_new_task" placeholder="Enter your task"></input>
+            <button id="btn_addTodo">Add todo!</button>
+        </div>
+
+        <div id="todos">
+
+            <!-- <div id="todoItem">
+                <input type="checkbox" id="chk_mark">
+                <span class="task_name">Go to Gym!</span>
+                <button class="edit_task">Edit</button>
+                <button class="delete_task">Delete</button>
+
+            </div> -->
+        </div>
+    </div>
+  
+    <script src="home.js"></script>
+    
+  
+  <!-- <script>
+    let todos = [];
+    
+    function addTodo() {
+      const strNewTask = ""+document.querySelector("#txt_new_task").value;
+      document.querySelector("#txt_new_task").value = "";
+      if(strNewTask.trim().length == 0){
+        alert("task cannot be empty!!");
+      }
+      else{
+        todos.push({
+            title: strNewTask.trim()
+        })
+        render();}
+    }
+
+    function createToDoComponent(todo){
+        
+        const todoDiv = document.createElement("div");
+        todoDiv.setAttribute("class","todoItem");
+        
+        const chkMark = document.createElement("input");
+        chkMark.setAttribute("type","checkbox");
+        chkMark.setAttribute("class","chk_mark");
+        todoDiv.appendChild(chkMark);
+
+        const taskTitle = document.createElement("span");
+        taskTitle.innerHTML = todo.title;
+        taskTitle.setAttribute("class","task_name");
+        todoDiv.appendChild(taskTitle);
+
+        const buttonEdit = document.createElement("button");
+        buttonEdit.innerHTML = "Edit";
+        buttonEdit.setAttribute("class","edit_task");
+        buttonEdit.setAttribute("onclick","editTodo('"+todo.title+"')");
+        todoDiv.appendChild(buttonEdit);
+
+        const buttonDelete = document.createElement("button");
+        buttonDelete.innerHTML = "Delete";
+        buttonDelete.setAttribute("class","delete_task");
+        buttonDelete.setAttribute("onclick","deleteTodo('"+todo.title+"')");
+        todoDiv.appendChild(buttonDelete);
+        
+        return todoDiv;
+    }
+
+    function deleteTodo(val) {
+      const elmIdx = todos.findIndex(todo => todo.title === val);
+      todos.splice(elmIdx,1);
+      render();
+    }
+ 
+    function render() {
+        document.querySelector("#todos").innerHTML = "";
+        todos.forEach(element => {
+            const todoElm = createToDoComponent(element)
+            document.querySelector("#todos").appendChild(todoElm);
+        });
+    }
+
+    function editTodo(val){
+        const elmIdx = todos.findIndex(todo => todo.title === val);
+        let updatedTaskVal = prompt("Edit todo task : ", val);
+        if(updatedTaskVal != null && updatedTaskVal.trim().length > 0){
+            todos[elmIdx].title = updatedTaskVal;
+        }
+        render();
+    }
+
+  </script> -->
+</body>

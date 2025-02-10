@@ -1,0 +1,31 @@
+<html>
+    <head>
+        <title>Welcome to MyTodo</title>
+        <link href="mystyle.css" rel="stylesheet"/>
+        
+    </head>
+
+    <body>
+        <div id="main_wrapper">
+            <div id="main_heading" style="padding-top: 15%;">
+                <h1>Welcome to MyToDo List</h1>
+            </div>
+
+            <form id="login_form">
+                <div id="login_cred_section">
+                    <div class="div_credentials"><input type="text" id="login_username" placeholder="Enter username"></div>
+                    <div class="div_credentials"><input type="password" id="login_password" placeholder="Enter password"></div>
+                </div>
+
+                <div id="div_login_signup_btns">
+                    <input type="submit" id="login_btn" value="login"/>
+                    <input type="submit" id="signup_btn" value="signup"/>
+                </div>
+            </form>
+        </div>
+    </body>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="login.js"></script> <!-- External JS for handling login -->
+
+</html>
